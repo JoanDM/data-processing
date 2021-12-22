@@ -1,9 +1,9 @@
 from config import _resources_dir_pathlib, _results_dir_pathlib
-from data_processsor_class import DataProcessor
+from data_processsor_class import CsvDataProcessor
 
 if __name__ == "__main__":
 
-    dataprocessor = DataProcessor(_results_dir_pathlib)
+    dataprocessor = CsvDataProcessor(_results_dir_pathlib)
     dataprocessor.fetch_csv_data_from_file_into_dataframe(
         _resources_dir_pathlib / "example_product_database.csv"
     )

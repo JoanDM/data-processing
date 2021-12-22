@@ -1,9 +1,10 @@
+import json
 from pathlib import Path
 
 import pandas as pd
 
 
-class DataProcessor(object):
+class CsvDataProcessor(object):
     def __init__(self, target_directory):
         self.set_target_directory(target_directory)
         self.df = None
@@ -29,3 +30,25 @@ class DataProcessor(object):
     def set_target_directory(self, target_directory):
         self.target_directory = Path(str(target_directory))
         target_directory.mkdir(parents=True, exist_ok=True)
+
+
+class JsonDataProcessor(object):
+    def __init__(self, target_directory):
+        self.set_target_directory(target_directory)
+        self.json_dict = None
+
+    def set_target_directory(self, target_directory):
+        self.target_directory = Path(str(target_directory))
+        target_directory.mkdir(parents=True, exist_ok=True)
+
+    def set_current_json_dict(self, json_dict):
+        self.json_dict = json_dict
+
+    def print_current_json_dict_content(self):
+        print(json.dumps(self.json_dict, indent=4))
+
+    def save_current_dict_to_json_file(self, target_filename):
+        target_filename_dir = self.target_directory / f"{target_filename}.json"
+        with open(target_filename_dir, "w") as fp:
+            json.dump(self.json_dict, fp)
+        print(f"File saved to {target_filename_dir}")
