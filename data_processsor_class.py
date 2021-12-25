@@ -44,11 +44,17 @@ class JsonDataProcessor(object):
     def set_current_json_dict(self, json_dict):
         self.json_dict = json_dict
 
+    def insert_key_val_to_current_json_dict(self, key, val):
+        self.json_dict[key] = val
+
     def print_current_json_dict_content(self):
         print(json.dumps(self.json_dict, indent=4))
 
-    def save_current_dict_to_json_file(self, target_filename):
+    def save_current_dict_to_json_file(
+        self, target_filename, print_output_file_path=True
+    ):
         target_filename_dir = self.target_directory / f"{target_filename}.json"
         with open(target_filename_dir, "w") as fp:
-            json.dump(self.json_dict, fp)
-        print(f"File saved to {target_filename_dir}")
+            json.dump(self.json_dict, fp, indent=4)
+        if print_output_file_path:
+            print(f"File saved to {target_filename_dir}")
