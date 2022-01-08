@@ -3,6 +3,8 @@ from pathlib import Path
 
 import pandas as pd
 
+from config import prRed
+
 
 class CsvDataProcessor(object):
     def __init__(self, target_directory):
@@ -46,6 +48,15 @@ class JsonDataProcessor(object):
 
     def insert_key_val_to_current_json_dict(self, key, val):
         self.json_dict[key] = val
+
+    def delete_key_from_current_json_dict(self, key):
+        try:
+            del self.json_dict[key]
+        except KeyError:
+            prRed(
+                f"Error, target key is not present in dict. "
+                f"Available keys: {self.json_dict.keys()}"
+            )
 
     def print_current_json_dict_content(self):
         print(json.dumps(self.json_dict, indent=4))
