@@ -62,9 +62,12 @@ class JsonDataProcessor(object):
         print(json.dumps(self.json_dict, indent=4))
 
     def save_current_dict_to_json_file(
-        self, target_filename, print_output_file_path=True
+        self,
+        target_filename,
+        target_directory,
+        print_output_file_path=True,
     ):
-        target_filename_dir = self.target_directory / f"{target_filename}.json"
+        target_filename_dir = target_directory / f"{target_filename}.json"
         with open(target_filename_dir, "w") as fp:
             json.dump(self.json_dict, fp, indent=4)
         if print_output_file_path:
